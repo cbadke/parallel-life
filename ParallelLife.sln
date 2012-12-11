@@ -3,6 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ParallelLife", "ParallelLife\ParallelLife.fsproj", "{1EF281BA-9414-455B-BC62-8255B08B8121}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "LifeEngine", "LifeEngine\LifeEngine.fsproj", "{9C1F90F6-E3EC-4AEC-B0E0-28A881F3C295}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "LifeEngine.Tests", "LifeEngine.Tests\LifeEngine.Tests.fsproj", "{2A21A879-EF9D-44C7-8D6B-633D611E7EEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A412C992-9E7D-4D9E-9A0F-36AF009330CF}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +24,14 @@ Global
 		{1EF281BA-9414-455B-BC62-8255B08B8121}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EF281BA-9414-455B-BC62-8255B08B8121}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EF281BA-9414-455B-BC62-8255B08B8121}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C1F90F6-E3EC-4AEC-B0E0-28A881F3C295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C1F90F6-E3EC-4AEC-B0E0-28A881F3C295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C1F90F6-E3EC-4AEC-B0E0-28A881F3C295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C1F90F6-E3EC-4AEC-B0E0-28A881F3C295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A21A879-EF9D-44C7-8D6B-633D611E7EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A21A879-EF9D-44C7-8D6B-633D611E7EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A21A879-EF9D-44C7-8D6B-633D611E7EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A21A879-EF9D-44C7-8D6B-633D611E7EEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
