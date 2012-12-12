@@ -34,8 +34,7 @@
     <DocumentationFile>bin\Release\LifeEngine.Tests.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FsUnit.NUnit">
-      <HintPath>..\packages\FsUnit.1.1.0.2\lib\Net40\FsUnit.NUnit.dll</HintPath>
+    <Reference Include="FsUnit.NUnit, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null">
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
@@ -54,6 +53,13 @@
     <None Include="Script.fsx" />
     <None Include="packages.config" />
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LifeEngine\LifeEngine.fsproj">
+      <Name>LifeEngine</Name>
+      <Project>{9c1f90f6-e3ec-4aec-b0e0-28a881f3c295}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
