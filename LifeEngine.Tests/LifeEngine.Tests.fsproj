@@ -40,7 +40,7 @@
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <ItemGroup>
     <Compile Include="Coord.Tests.fs" />
-    <None Include="Script.fsx" />
+    <Compile Include="Rules.Tests.fs" />
     <None Include="packages.config" />
     <None Include="app.config" />
   </ItemGroup>
