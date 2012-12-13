@@ -1,13 +1,13 @@
 ﻿namespace LifeEngine
 
 type Game(collection : seq<string>) =
-    let parseString idx str = str 
-                              |> Seq.fold (fun (column, rowCol) ch -> 
+    let parseString (idx : int) str = str 
+                                      |> Seq.fold (fun (column, rowCol) ch -> 
                                             if ch <> '0' then 
-                                                (column+1, (column,idx)::rowCol) 
+                                                (column+1L, Coord(column,int64 idx)::rowCol) 
                                             else 
-                                                (column+1, rowCol)) 
-                                 (0, List.Empty)
+                                                (column+1L, rowCol)) 
+                                            (0L, List.Empty)
     let grid = collection
                |> Seq.mapi parseString
                |> Seq.map (fun (a,b) -> b)
@@ -15,27 +15,29 @@ type Game(collection : seq<string>) =
 
     let gridTop g = g
                     |> Seq.map (fun row -> row
-                                           |> Seq.map (fun (x,y) -> y)
+                                           |> Seq.map (fun (c : Coord) -> c.Y)
                                            |> Seq.min)
                     |> Seq.min
     let gridBottom g = g
                        |> Seq.map (fun row -> row
-                                              |> Seq.map (fun (x,y) -> y)
+                                              |> Seq.map (fun (c : Coord) -> c.Y)
                                               |> Seq.max)
                        |> Seq.max
     let gridLeft g = g
                      |>   Seq.map (fun row -> row
-                                              |> Seq.map (fun (x,y) -> x)
+                                              |> Seq.map (fun (c : Coord) -> c.X)
                                               |> Seq.min)
                      |> Seq.min
     let gridRight g = g
                       |> Seq.map (fun row -> row
-                                             |> Seq.map (fun (x,y) -> x)
+                                             |> Seq.map (fun (c : Coord) -> c.X)
                                              |> Seq.max)
                       |> Seq.max
     
     member x.Extents = match grid with
-                       | _ when List.isEmpty grid -> (0,0)
-                       | _ -> (gridRight grid - gridLeft grid + 1, gridBottom grid - gridTop grid + 1)
+                       | _ when List.isEmpty grid -> (0L,0L)
+                       | _ -> (gridRight grid - gridLeft grid + 1L, gridBottom grid - gridTop grid + 1L)
 
+
+    member x.LiveCells = Seq.concat grid
     new() = Game(Seq.empty)
