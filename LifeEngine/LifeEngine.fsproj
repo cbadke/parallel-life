@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="Coord.fs" />
     <Compile Include="Rules.fs" />
+    <Compile Include="Game.fs" />
     <None Include="Script.fsx" />
   </ItemGroup>
   <ItemGroup>

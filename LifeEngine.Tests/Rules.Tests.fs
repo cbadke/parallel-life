@@ -1,4 +1,4 @@
-﻿module Rules
+﻿module Rules.Tests
 
 open NUnit.Framework
 open FsUnit

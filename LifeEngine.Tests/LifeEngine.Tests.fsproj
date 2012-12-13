@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Coord.Tests.fs" />
     <Compile Include="Rules.Tests.fs" />
+    <Compile Include="Game.Tests.fs" />
     <None Include="packages.config" />
     <None Include="app.config" />
   </ItemGroup>
