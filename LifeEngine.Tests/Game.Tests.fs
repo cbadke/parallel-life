@@ -28,14 +28,9 @@ type ``GameConstruction`` () =
 
     [<Test>]
     member tests.
-     ``Can fetch out live cells`` () =
-        let g = Game ( [|"100"; "010"; "001"|] )
-        Seq.length g.LiveCells |> should equal 3
-
-    [<Test>]
-    member tests.
      ``Live Cells are Coords`` () =
         let g = Game ( [|"100"; "010"; "001"|] )
+        Seq.length g.LiveCells |> should equal 3
         Seq.exists (fun (coord : Coord) -> coord.X = 0L && coord.Y = 0L) g.LiveCells |> should be True
         Seq.exists (fun (coord : Coord) -> coord.X = 1L && coord.Y = 1L) g.LiveCells |> should be True
         Seq.exists (fun (coord : Coord) -> coord.X = 2L && coord.Y = 2L) g.LiveCells |> should be True
