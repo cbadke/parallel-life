@@ -37,10 +37,31 @@ type ``Coordinate Object`` ()=
         let down = Coord(0L, -1L)
         c.IsNeighbour up |> should be True
         c.IsNeighbour down |> should be True
-
+        
     [<Test>]
     member test.
      ``Identifies 'row-neighbour' as non-neighbour`` () =
         let c = Coord()
         let upRow = Coord(10L, 1L)
         c.IsNeighbour upRow |> should be False
+
+    [<Test>]
+    member test.
+     ``Returns list of all neighbours`` () = 
+        let n = Coord(1L, 1L).Neighbours
+        Seq.length n |> should equal 8
+        Seq.exists (fun (coord : Coord) -> coord.X = 0L && coord.Y = 0L) n |> should be True
+        Seq.exists (fun (coord : Coord) -> coord.X = 1L && coord.Y = 0L) n |> should be True
+        Seq.exists (fun (coord : Coord) -> coord.X = 2L && coord.Y = 0L) n |> should be True
+        Seq.exists (fun (coord : Coord) -> coord.X = 0L && coord.Y = 1L) n |> should be True
+        Seq.exists (fun (coord : Coord) -> coord.X = 2L && coord.Y = 1L) n |> should be True
+        Seq.exists (fun (coord : Coord) -> coord.X = 0L && coord.Y = 2L) n |> should be True
+        Seq.exists (fun (coord : Coord) -> coord.X = 1L && coord.Y = 2L) n |> should be True
+        Seq.exists (fun (coord : Coord) -> coord.X = 2L && coord.Y = 2L) n |> should be True
+
+    [<Test>]
+    member test.
+     ``Can compare Coords for equality`` () =
+        Coord(1L, 1L) = Coord(1L, 1L) |> should be True
+        Coord(0L, 1L) = Coord(1L, 1L) |> should be False
+        Coord(1L, 0L) = Coord(1L, 1L) |> should be False
