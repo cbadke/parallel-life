@@ -21,6 +21,8 @@ type Game(cells : seq<Coord>) =
 
     member x.LiveCells = cells
 
+    member x.Next = Game()
+
     new(collection : seq<string>) =
         let parseString (idx : int) str = str 
                                           |> Seq.fold (fun (column, rowCol) ch -> 
