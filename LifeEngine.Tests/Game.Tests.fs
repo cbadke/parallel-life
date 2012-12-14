@@ -12,19 +12,22 @@ type ``GameConstruction`` () =
     member tests.
      ``Empty Game Can be constructed`` () =
         let g = Game()
-        g.Extents |> should equal (0L,0L)
+        fst g.Extents |> should equal (Coord(0L,0L))
+        snd g.Extents |> should equal (Coord(0L,0L))
 
     [<Test>]
     member tests.
      ``Game can be constructed with strings`` () =
         let g = Game( [|"0000"; "0000"; "0000"|] )
-        g.Extents |> should equal (0L,0L)
+        fst g.Extents |> should equal (Coord(0L,0L))
+        snd g.Extents |> should equal (Coord(0L,0L))
 
     [<Test>]
     member tests.
-     ``Extents match maximum with and height of living cells`` () =
+     ``Extents return top left and bottom right corners of covering square`` () =
         let g = Game ( [|"0010"; "0000"; "0100"; "0000"|] )
-        g.Extents |> should equal (2L,3L)
+        fst g.Extents |> should equal (Coord(1L,0L))
+        snd g.Extents |> should equal (Coord(2L,2L))
 
     [<Test>]
     member tests.

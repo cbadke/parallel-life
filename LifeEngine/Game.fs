@@ -26,8 +26,8 @@ type Game(cells : seq<Coord>) =
                                         | _ -> Rules.Dead
     
     member x.Extents = match cells with
-                       | _ when Seq.isEmpty cells -> (0L,0L)
-                       | _ -> (gridRight cells - gridLeft cells + 1L, gridBottom cells - gridTop cells + 1L)
+                       | _ when Seq.isEmpty cells -> (Coord(0L,0L), Coord(0L,0L))
+                       | _ -> (Coord(gridLeft cells, gridTop cells), Coord(gridRight cells, gridBottom cells))
 
     member x.LiveCells = cells
 
