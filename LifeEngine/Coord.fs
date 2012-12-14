@@ -21,13 +21,13 @@ type Coord(x, y) =
                  Math.Abs(y - coord.Y : int64) <= 1L -> true
         | _ -> false
 
-    member this.Neighbours = [| Coord(x-1L, y-1L);
-                                Coord(x, y-1L);
-                                Coord(x+1L, y-1L);
-                                Coord(x-1L, y);
-                                Coord(x+1L, y);
-                                Coord(x-1L, y+1L);
-                                Coord(x, y+1L);
-                                Coord(x+1L, y+1L) |]
+    member this.Neighbours = [ Coord(x-1L, y-1L);
+                               Coord(x, y-1L);
+                               Coord(x+1L, y-1L);
+                               Coord(x-1L, y);
+                               Coord(x+1L, y);
+                               Coord(x-1L, y+1L);
+                               Coord(x, y+1L);
+                               Coord(x+1L, y+1L) ]
 
     new() = Coord(0L, 0L)

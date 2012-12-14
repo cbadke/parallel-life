@@ -1,5 +1,7 @@
 ﻿namespace LifeEngine
 
+open LifeEngine
+
 type Game(cells : seq<Coord>) =
 
     let gridTop g = g
@@ -14,6 +16,14 @@ type Game(cells : seq<Coord>) =
     let gridRight g = g
                       |> Seq.map (fun (c : Coord) -> c.X)
                       |> Seq.max
+
+    let countLivingNeighbours (coord : Coord) = cells
+                                                |> Seq.filter(coord.IsNeighbour)
+                                                |> Seq.length
+
+    let currentState (coord : Coord) = match coord with
+                                        | _ when Seq.exists (fun b -> b = coord) cells -> Rules.Alive
+                                        | _ -> Rules.Dead
     
     member x.Extents = match cells with
                        | _ when Seq.isEmpty cells -> (0L,0L)
@@ -21,7 +31,12 @@ type Game(cells : seq<Coord>) =
 
     member x.LiveCells = cells
 
-    member x.Next = Game()
+    member x.Next = let newCells = cells
+                                    |> Seq.map (fun c -> c :: c.Neighbours)
+                                    |> Seq.concat
+                                    |> Seq.distinct
+                                    |> Seq.filter (fun c -> Rules.NextState (currentState c) (countLivingNeighbours c) = Rules.Alive)
+                    Game(newCells)
 
     new(collection : seq<string>) =
         let parseString (idx : int) str = str 

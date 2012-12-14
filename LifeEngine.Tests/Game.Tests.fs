@@ -44,12 +44,28 @@ type ``Game Progression``() =
        let g = Game()
        Seq.length g.Next.LiveCells |> should equal 0
 
-//    [<Test>]
-//    member tests.
-//     ``Propellor state 1 leads to state 2``() =
-//        let g = Game( [|"111"|] ).Next
-//        Seq.length g.LiveCells |> should equal 3
-//        Seq.exists (fun (coord : Coord) -> coord.X = 1L && coord.Y = 0L) g.LiveCells |> should be True
-//        Seq.exists (fun (coord : Coord) -> coord.X = 1L && coord.Y = 1L) g.LiveCells |> should be True
-//        Seq.exists (fun (coord : Coord) -> coord.X = 1L && coord.Y = 2L) g.LiveCells |> should be True
+    [<Test>]
+    member tests.
+     ``Propellor init works``() =
+       let g = Game( [|"111"|] )
+       Seq.exists (fun (coord : Coord) -> coord.X = 0L && coord.Y = 0L) g.LiveCells |> should be True
+       Seq.exists (fun (coord : Coord) -> coord.X = 1L && coord.Y = 0L) g.LiveCells |> should be True
+       Seq.exists (fun (coord : Coord) -> coord.X = 2L && coord.Y = 0L) g.LiveCells |> should be True
+
+    [<Test>]
+    member tests.
+     ``Propellor state 1 leads to state 2``() =
+        let g = Game( [|"111"|] ).Next
+        Seq.length g.LiveCells |> should equal 3
+        Seq.exists (fun (coord : Coord) -> coord.X = 1L && coord.Y = -1L) g.LiveCells |> should be True
+        Seq.exists (fun (coord : Coord) -> coord.X = 1L && coord.Y = 0L) g.LiveCells |> should be True
+        Seq.exists (fun (coord : Coord) -> coord.X = 1L && coord.Y = 1L) g.LiveCells |> should be True
+
+    [<Test>]
+    member tests.
+     ``Propellor state 2 leads to state 1``() =
+       let g = Game( [|"111"|] ).Next.Next
+       Seq.exists (fun (coord : Coord) -> coord.X = 0L && coord.Y = 0L) g.LiveCells |> should be True
+       Seq.exists (fun (coord : Coord) -> coord.X = 1L && coord.Y = 0L) g.LiveCells |> should be True
+       Seq.exists (fun (coord : Coord) -> coord.X = 2L && coord.Y = 0L) g.LiveCells |> should be True
             
