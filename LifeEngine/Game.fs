@@ -2,7 +2,7 @@
 
 open LifeEngine
 
-type Game(cells : seq<Coord>) =
+type Game(cells : List<Coord>) =
 
     let gridTop g = g
                     |> Seq.map (fun (c : Coord) -> c.Y)
@@ -36,6 +36,7 @@ type Game(cells : seq<Coord>) =
                                     |> Seq.concat
                                     |> Seq.distinct
                                     |> Seq.filter (fun c -> Rules.NextState (currentState c) (countLivingNeighbours c) = Rules.Alive)
+                                    |> Seq.toList
                     Game(newCells)
 
     new(collection : seq<string>) =
@@ -51,5 +52,6 @@ type Game(cells : seq<Coord>) =
                     |> Seq.map (fun (a,b) -> b)
                     |> Seq.fold (fun gr row -> if List.length row > 0 then row::gr else gr) List.Empty
                     |> Seq.concat
+                    |> Seq.toList
         Game(coords)
-    new() = Game(Seq.empty<Coord>)
+    new() = Game(List.empty<Coord>)
