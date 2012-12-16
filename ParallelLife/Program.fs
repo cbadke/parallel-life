@@ -3,11 +3,16 @@
 module ParallelLife
 
 open LifeEngine
+open System.IO
 open System.Windows.Forms
 
 [<EntryPoint>]
 let main argv = 
-    let propeller = ["000";"111";"000"];
+    
+    match Array.length argv with
+    | 1 -> if File.Exists argv.[0] then
+               let seed = File.ReadAllLines argv.[0]
+               do Application.Run( new LifeRenderer.RenderWindow(seed) )
+    | _ -> printfn "Usage: ParallelLife path_to_seed_file"
 
-    do Application.Run(new LifeRenderer.RenderWindow(propeller))
     0 // return an integer exit code
