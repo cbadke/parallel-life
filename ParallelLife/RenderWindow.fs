@@ -16,7 +16,7 @@ type RenderWindow(seed : seq<string>) as form =
         let renderCell (cell : Coord) = 
             let x = int squareSize * int cell.X
             let y = int squareSize * int cell.Y
-            let width = int squareSize
+            let width = int squareSize - 1
 
             let myBrush = new System.Drawing.SolidBrush(Color.White)
             let rectangle = Rectangle(x, y, width, width)
