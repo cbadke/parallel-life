@@ -71,21 +71,30 @@ type RenderWindow(seed : seq<string>) as form =
         drawGame(gp)
         gp.Dispose()
 
-    override this.OnKeyUp e =
+    override this.OnKeyDown e =
         match e.KeyValue with
         | 0xBD -> squareSize <- squareSize * 0.5
+                  e.Handled <- true
                   this.Refresh()
         | 0x30 -> squareSize <- squareSize * 2.0
+                  e.Handled <- true
                   this.Refresh()
         | 0x20 -> centerView()
+                  e.Handled <- true
                   this.Refresh()
         | 0x25 -> moveLeft()
+                  e.Handled <- true
                   this.Refresh()
         | 0x27 -> moveRight()
+                  e.Handled <- true
                   this.Refresh()
         | 0x26 -> moveUp()
+                  e.Handled <- true
                   this.Refresh()
         | 0x28 -> moveDown()
+                  e.Handled <- true
                   this.Refresh()
         | 0x51 -> Application.Exit()
-        | _ -> base.OnKeyUp(e)
+        | _ -> e.Handled <- false
+
+        base.OnKeyDown(e)
