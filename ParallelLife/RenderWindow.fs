@@ -49,13 +49,14 @@ type RenderWindow(seed : seq<string>) as form =
 
     member this.InitializeForm() =
         this.MinimumSize <- Size(400,400) 
+        this.ClientSize <- Size(800,800)
         this.Text <- "Conway's Game of Life"
         this.BackColor <- Color.Black
 
         centerView()
 
         let t = new Timer()
-        t.Interval <- 500;
+        t.Interval <- 100;
         t.Tick.Add UpdateWorld
         t.Start()
 
