@@ -18,13 +18,20 @@ type RenderWindow(seed : seq<string>) as form =
     let moveRight() = anchorX <- anchorX - 1
     let moveUp() = anchorY <- anchorY + 1
     let moveDown() = anchorY <- anchorY - 1
+    let currentCenter() = let screenCenterX = form.ClientSize.Width / (2 * int squareSize)
+                          let screenCenterY = form.ClientSize.Height / (2 * int squareSize)
+                          (screenCenterX + anchorX, screenCenterY + anchorY)
+
+    let centerOnCoord (x,y) =
+                       let screenWidth = form.ClientSize.Width / int squareSize
+                       let screenHeight = form.ClientSize.Height / int squareSize
+                       anchorX <- int x - (screenWidth / 2)
+                       anchorY <- int y - (screenHeight / 2)
+
     let centerView() = let extents = game.Extents
                        let gameCenterX = (fst extents).X + (((snd extents).X - (fst extents).X) / int64 2)
                        let gameCenterY = (fst extents).Y + (((snd extents).Y - (fst extents).Y) / int64 2)
-                       let screenWidth = form.ClientSize.Width / int squareSize
-                       let screenHeight = form.ClientSize.Height / int squareSize
-                       anchorX <- int gameCenterX - (screenWidth / 2)
-                       anchorY <- int gameCenterY - (screenHeight / 2)
+                       centerOnCoord (int gameCenterX, int gameCenterY)
 
     let onScreen (c : Coord) =
                        let screenWidth = form.ClientSize.Width / int squareSize
@@ -73,10 +80,14 @@ type RenderWindow(seed : seq<string>) as form =
 
     override this.OnKeyDown e =
         match e.KeyValue with
-        | 0xBD -> squareSize <- squareSize * 0.5
+        | 0xBD -> let center = currentCenter()
+                  squareSize <- squareSize * 0.5
+                  centerOnCoord center
                   e.Handled <- true
                   this.Refresh()
-        | 0x30 -> squareSize <- squareSize * 2.0
+        | 0x30 -> let center = currentCenter()
+                  squareSize <- squareSize * 2.0
+                  centerOnCoord center
                   e.Handled <- true
                   this.Refresh()
         | 0x20 -> centerView()
