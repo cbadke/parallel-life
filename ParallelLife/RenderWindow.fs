@@ -14,10 +14,10 @@ type RenderWindow(seed : seq<string>) as form =
     let mutable squareSize = 10.0
     let mutable game = Game(seed)
 
-    let moveLeft() = anchorX <- anchorX - 1
-    let moveRight() = anchorX <- anchorX + 1
-    let moveUp() = anchorY <- anchorY - 1
-    let moveDown() = anchorY <- anchorY + 1
+    let moveLeft() = anchorX <- anchorX + 1
+    let moveRight() = anchorX <- anchorX - 1
+    let moveUp() = anchorY <- anchorY + 1
+    let moveDown() = anchorY <- anchorY - 1
     let centerView() = let extents = game.Extents
                        let gameCenterX = (fst extents).X + (((snd extents).X - (fst extents).X) / int64 2)
                        let gameCenterY = (fst extents).Y + (((snd extents).Y - (fst extents).Y) / int64 2)
@@ -25,6 +25,11 @@ type RenderWindow(seed : seq<string>) as form =
                        let screenHeight = form.ClientSize.Height / int squareSize
                        anchorX <- int gameCenterX - (screenWidth / 2)
                        anchorY <- int gameCenterY - (screenHeight / 2)
+
+    let onScreen (c : Coord) =
+                       let screenWidth = form.ClientSize.Width / int squareSize
+                       let screenHeight = form.ClientSize.Height / int squareSize
+                       int c.X >= anchorX && int c.X <= anchorX + screenWidth && int c.Y >= anchorY && int c.Y <= anchorY + screenHeight
                        
 
     let drawGame (gp : Graphics) =
@@ -39,6 +44,7 @@ type RenderWindow(seed : seq<string>) as form =
 
             myBrush.Dispose()
         Seq.toArray game.LiveCells
+        |> Array.filter onScreen
         |> Array.iter renderCell
 
     let UpdateWorld e =
@@ -66,23 +72,20 @@ type RenderWindow(seed : seq<string>) as form =
         gp.Dispose()
 
     override this.OnKeyUp e =
-        base.OnKeyUp(e);
-
-        match e.KeyCode with
-        | Keys.Add -> squareSize <- squareSize * 0.5
-                      this.Refresh()
-        | Keys.Subtract -> squareSize <- squareSize * 2.0
-                           this.Refresh()
-        | Keys.Space -> squareSize <- defaultSquareSize
-                        centerView()
-                        this.Refresh()
-        | Keys.Left -> moveLeft()
-                       this.Refresh()
-        | Keys.Right -> moveRight()
-                        this.Refresh()
-        | Keys.Up -> moveUp()
-                     this.Refresh()
-        | Keys.Down -> moveDown()
-                       this.Refresh()
-        | Keys.Q -> Application.Exit()
-        | _ -> this.Refresh()
+        match e.KeyValue with
+        | 0xBD -> squareSize <- squareSize * 0.5
+                  this.Refresh()
+        | 0x30 -> squareSize <- squareSize * 2.0
+                  this.Refresh()
+        | 0x20 -> centerView()
+                  this.Refresh()
+        | 0x25 -> moveLeft()
+                  this.Refresh()
+        | 0x27 -> moveRight()
+                  this.Refresh()
+        | 0x26 -> moveUp()
+                  this.Refresh()
+        | 0x28 -> moveDown()
+                  this.Refresh()
+        | 0x51 -> Application.Exit()
+        | _ -> base.OnKeyUp(e)
